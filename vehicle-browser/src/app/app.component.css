@@ -1,0 +1,12 @@
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.menu-container{
+    width: 100%;
+}
+
+.menu-item{
+    padding: 5px;
+}

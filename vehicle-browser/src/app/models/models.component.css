@@ -1,0 +1,15 @@
+.container{
+    margin: 8px;
+}
+
+mat-form-field{
+    margin: 8px;
+}
+
+table{
+    width: 100%;
+}
+
+form{
+    width: 50%;
+}
