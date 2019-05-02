@@ -1,15 +1,36 @@
-.container{
-    margin: 8px;
+.container {
+  margin: 8px;
 }
 
-mat-form-field{
-    margin: 8px;
+mat-form-field {
+  margin: 8px;
 }
 
-table{
+table {
+  width: 100%;
+}
+
+form {
+  width: 50%;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+}
+
+.pagination p {
+  margin-right: 8px;
+  padding-right: 8px;
+  border-right: 0.5px solid black;
+}
+
+@media screen and (max-width: 599px) {
+  form {
     width: 100%;
-}
+  }
 
-form{
-    width: 50%;
+  form button {
+    width: 100%;
+  }
 }

@@ -50,10 +50,11 @@ export class ModelsComponent implements OnInit {
       .get<ICar[]>(
         `https://vehicle-data.azurewebsites.net/api/models?make=${
           this.selectedMake ? this.selectedMake : ""
-        }&year=${this.selectedYear ? this.selectedYear : ""}&fetch=20`
+        }&year=${this.selectedYear ? this.selectedYear : ""}&fetch=30`
       )
       .subscribe(cars => {
         this.cars = cars;
+        this.curPage = 1;
         this.displayedCars = cars.slice(0, 10);
         this.checkNextEnabled();
       });
@@ -61,35 +62,29 @@ export class ModelsComponent implements OnInit {
 
   paginateForwards() {
     this.curPage++;
-    console.log(`${this.curPage} ${this.cars.length}`);
-    if (this.curPage * 10 + 10 >= this.cars.length && !this.isNextDisabled) {
-      console.log("if 1");
+    if (this.curPage * 10 + 20 >= this.cars.length && !this.isNextDisabled) {
       this.http
         .get<ICar[]>(
           `https://vehicle-data.azurewebsites.net/api/models?make=${
             this.selectedMake ? this.selectedMake : ""
           }&year=${
             this.selectedYear ? this.selectedYear : ""
-          }&fetch=20&offset=${this.curPage * 10}`
+          }&fetch=30&offset=${this.cars.length}`
         )
         .subscribe(cars => {
-          this.cars = cars;
-          if (cars.length <= 0) {
-            this.isNextDisabled = true;
-            return;
-          }
-          this.isNextDisabled = false;
+          this.cars.push(...cars);
           this.displayedCars = this.cars.slice(
             this.curPage * 10 - 10,
             this.curPage * 10
           );
+          this.checkNextEnabled();
         });
-    } else if(!this.isNextDisabled){
-      console.log("if 2");
+    } else if (!this.isNextDisabled) {
       this.displayedCars = this.cars.slice(
         this.curPage * 10 - 10,
         this.curPage * 10
       );
+      this.checkNextEnabled();
     }
   }
 
@@ -103,7 +98,6 @@ export class ModelsComponent implements OnInit {
   }
 
   checkNextEnabled() {
-    console.log(`${this.curPage} ${this.cars.length}`);
     if (this.curPage * 10 >= this.cars.length) {
       this.isNextDisabled = true;
       return;

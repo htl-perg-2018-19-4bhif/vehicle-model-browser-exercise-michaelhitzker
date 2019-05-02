@@ -1,6 +1,18 @@
 <div class="container">
-  <div class="select-row" fxLayout="row" fxLayoutAlign="space-between center">
-    <form>
+  <div
+    class="select-row"
+    fxLayout.lt-md="column"
+    fxLayout="row"
+    fxLayoutAlign.lt-md="center center"
+    fxLayoutAlign.lt-sm="space-between stretch"
+    fxLayoutAlign="space-between center"
+  >
+    <form
+      fxLayout.lt-sm="column"
+      fxLayout="row"
+      fxLayoutAlign.lt-sm="space-between stretch"
+      fxLayoutAlign="flex-start center"
+    >
       <mat-form-field>
         <mat-label>Make</mat-label>
         <mat-select [(ngModel)]="selectedMake" name="make">
@@ -21,11 +33,22 @@
         <mat-icon>refresh</mat-icon>
       </button>
     </form>
-    <div class="pagination">
-      <button mat-button [disabled]="curPage < 2" (click)='paginateBackwards()'>
+    <div
+      class="pagination"
+      fxLayoutAlign="flex-start center"
+      fxLayoutAlign.lt-sm="center center"
+    >
+      <p>
+        Page <b>{{ curPage }}</b>
+      </p>
+      <button mat-button [disabled]="curPage < 2" (click)="paginateBackwards()">
         Prev
       </button>
-      <button mat-button [disabled]='isNextDisabled' (click)='paginateForwards()'>
+      <button
+        mat-button
+        [disabled]="isNextDisabled"
+        (click)="paginateForwards()"
+      >
         Next
       </button>
     </div>
